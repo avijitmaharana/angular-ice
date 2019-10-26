@@ -1,0 +1,57 @@
+<!-- <h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</div> -->
+
+<div>
+  <div class="cont">
+    <i class="material-icons" (click)="dialogRef.close()"
+      style="margin-top: -15px;cursor: pointer;text-align: end;">
+      cancel
+    </i>
+  </div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ isLoginMode ? 'Login' : 'Sign Up' }}
+      </mat-card-title>
+    </mat-card-header>
+    <div *ngIf="error" class="alert alert-danger">
+      <p>{{error}}</p>
+    </div>
+    <div *ngIf="isLoading">
+      <mat-spinner style="margin-left: 135px;"></mat-spinner>
+    </div>
+    <form *ngIf="!isLoading" [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)">
+      <div class="row">
+        <div class="col-xs-12 cont">
+          <mat-form-field>
+            <input matInput formControlName="email" placeholder="Enter Email Id">
+            <mat-error *ngIf="authForm.get('email').invalid">{{emailErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 cont">
+          <mat-form-field>
+            <input matInput formControlName="password" placeholder="Enter Password">
+            <mat-error *ngIf="authForm.get('password').invalid">{{passErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button type="submit" [disabled]="!authForm.valid"
+          class="btn btn-success">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button> |
+        <button mat-raised-button type="button" (click)="onSwitch()" color="primary">Switch To
+          {{ !isLoginMode ? 'Login' : 'Sign Up' }}</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
